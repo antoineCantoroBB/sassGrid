@@ -1,0 +1,41 @@
+@use 'variables' as *;
+@use "sass:math";
+
+// Grid Generation
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+
+    @if map-get($grid-breakpoints, $breakpoint) == 0px {
+
+        @for $i from 1 through $grid-columns {
+
+            .col-#{$i} {
+                flex-basis: math.div(100%, $grid-columns) * $i;
+            }
+
+            .col-offset-#{$i} {
+                margin-left: math.div(100%,$grid-columns) * $i;
+            }
+
+        }
+    }
+
+    @else {
+
+        @media screen and (min-width: map-get($grid-breakpoints, $breakpoint)) {
+
+            @for $i from 1 through $grid-columns {
+
+                .col-#{$breakpoint}-#{$i} {
+                    flex-basis: math.div(100%,$grid-columns) * $i;
+                }
+
+                .col-#{$breakpoint}-offset-#{$i} {
+                    margin-left: math.div(100%,$grid-columns) * $i;
+                }
+            }
+
+        }
+    }
+
+}

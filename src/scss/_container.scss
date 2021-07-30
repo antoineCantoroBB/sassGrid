@@ -1,0 +1,56 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+@use "sass:math";
+
+.container {
+    margin: 0 auto;
+}
+
+.container,
+.container-fluid {
+    display: flex;
+    flex-wrap: wrap;
+
+    div[class^="col-"] {
+        padding-right: math.div($grid-gutter-width, 2);
+        padding-left: math.div($grid-gutter-width, 2);
+    }
+}
+
+
+@include breakpoint(sm) {
+    .container {
+        background: yellow;
+    }
+}
+
+@include breakpoint(md) {
+    .container {
+        background: orange;
+    }
+}
+
+@include breakpoint(lg) {
+    .container {
+        background: red;
+    }
+}
+
+
+// Container Generation
+@each $breakpoint in map-keys($container-max-width) {
+    @if map-get($container-max-width, $breakpoint) != 0px {
+        @media screen and (min-width: map-get($grid-breakpoints, $breakpoint)) {
+            .container {
+                @if $grid-gutter-outside == 0 {
+                    max-width: map-get($container-max-width, $breakpoint) + math.div($grid-gutter-width, 2) * -1;
+                }
+                @else {
+                    max-width: map-get($container-max-width, $breakpoint);
+                }
+            }
+        }
+
+    }
+
+}

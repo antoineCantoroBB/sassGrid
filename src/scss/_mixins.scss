@@ -1,0 +1,11 @@
+@use 'variables' as *;
+
+@mixin breakpoint($size) {
+    @if not map-has-key($grid-breakpoints, $size) {
+        @warn "Warning: `#{$size}` is not a valid breakpoint name.";
+    } @else {
+        @media (min-width: map-get($grid-breakpoints, $size)) {
+            @content;
+        }
+    }
+}

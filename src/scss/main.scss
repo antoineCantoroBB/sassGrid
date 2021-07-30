@@ -1,0 +1,11 @@
+@use 'variables' as *;
+@use 'container' as *;
+@use 'grid' as *;
+@use 'mixins' as *;
+@use "sass:math";
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
